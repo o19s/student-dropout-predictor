@@ -13,6 +13,11 @@ for idx, row in enumerate(dr):
         print "Indexed %s" % idx
     student = {'STU_ID': row['STU_ID'],
                'BYSIBHOM': row['BYSIBHOM'],
+               'BYMOTHED': row['BYMOTHED'],
+               'BYFATHED': row['BYFATHED'],
+               'BYMATHSE': row['BYMATHSE'],
+               'BYENGLSE': row['BYENGLSE'],
+               'BYINCOME': row['BYINCOME'],
                'F1DOSTAT': row['F1DOSTAT']}
     es.index('els', doc_type='student', id=row['STU_ID'], body=student)
 print idx
