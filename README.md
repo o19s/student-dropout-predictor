@@ -14,5 +14,6 @@ With csv data,
 ```bash
 virtualenv venv
 source venv/bin/activate
+pip install -r requirements.txt
 python indexEls.py path_to.csv
 ```
