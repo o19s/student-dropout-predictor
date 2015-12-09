@@ -9,13 +9,13 @@ from sys import argv
 query = {
     "query": {
         "bool": {
-            "should": [
-                {"match": {
-                    "BYSIBHOM": argv[1]
-                }},
+            "must": [
+                #{"match": {
+                #    "BYSIBHOM": argv[1]
+                #}},
                 {
                  "match": {
-                     "BYINCOME": argv[2]
+                    "BYINCOME": argv[1]
                   }
                 }
             ]
@@ -34,6 +34,15 @@ print res['hits']['hits'][0]['_source']
 print len(res['hits']['hits'])
 for hit in res['hits']['hits']:
     print hit['_source']
-import json
-print json.dumps(res, indent=True)
 print "Total: %s " % res['hits']['total']
+total = res['hits']['total']
+
+for bucket in res['aggregations']['dropouts']['buckets']:
+    if bucket['key'] == '1':
+        docCount = int(bucket['doc_count'])
+        percentage = ((docCount / float(total)) * 100.0)
+        print "Dropout %s" % percentage
+    if bucket['key'] == '0':
+        docCount = int(bucket['doc_count'])
+        percentage = ((docCount / float(total)) * 100.0)
+        print "Graduated %s" % percentage
